@@ -20,6 +20,12 @@ function is_date_valid(string $date) : bool {
     return $dateTimeObj !== false && array_sum(date_get_last_errors()) === 0;
 }
 
+// function validateDate($date, $format = 'Y-m-d H:i:s')
+// {
+//     $d = DateTime::createFromFormat($format, $date);
+//     return $d && $d->format($format) == $date;
+// }
+
 /**
  * Создает подготовленное выражение на основе готового SQL запроса и переданных данных
  *
@@ -142,3 +148,41 @@ function include_template($name, array $data = []) {
 
     return $result;
 }
+
+
+
+function DefendFromSqlInjection($str) 
+{
+		//Преобразование спец символов в html
+    $text = htmlspecialchars($str);
+    return $text;
+}
+
+function getPostVal($name) 
+{
+    return $_POST[$name] ?? "";
+}
+
+function getPostFile($name) 
+{
+    return $_FILES[$name] ?? "";
+}
+
+function inputStrIsValid($min, $max, $name) 
+{
+    $len = strlen($name);
+		if ($len < $min or $len > $max) 
+		{
+        return 'Длина вводимого значения должна быть в диапазоне: от '.$min.' до '.$max.' символов';
+    }
+    return null;
+}
+
+//Получение имени файла URL
+function getNameFileByURl($url) 
+{
+    $afn = explode ( "/", $url ); //Разбиение строки сепаратором
+    return end($afn); //Установка указателя на последний элемент
+}
+
+?>
